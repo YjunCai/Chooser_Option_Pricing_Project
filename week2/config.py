@@ -10,8 +10,14 @@ from pathlib import Path
 # =============================================================================
 # Paths
 # =============================================================================
-WEEK1_DATA_DIR = Path(r"E:/JPMorgan实习交付/week1/data")
-WEEK2_OUTPUT_DIR = Path(os.path.dirname(__file__)) / "output"
+# Project root is two levels up from this config file:
+#   config.py → week2/ → root (e:\实习交付\week2\)
+#   root/week1/data/  contains raw data
+_WEEK2_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
+_PROJECT_ROOT = _WEEK2_DIR.parent 
+
+WEEK1_DATA_DIR = _PROJECT_ROOT / "week1" / "data"
+WEEK2_OUTPUT_DIR = _WEEK2_DIR / "output"
 
 # =============================================================================
 # Data sources (Week 1 output files)
