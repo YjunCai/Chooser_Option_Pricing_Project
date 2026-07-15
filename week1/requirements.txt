@@ -1,0 +1,21 @@
+# =============================================================================
+# Week 1 — Chooser Option Pricing: Data Collection Dependencies
+# =============================================================================
+# Install: pip install -r requirements.txt
+
+# Core data stack
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Yahoo Finance
+yfinance>=0.2.30
+
+# HTTP / API
+requests>=2.31.0
+
+# Data persistence
+pyarrow>=14.0.0          # parquet support
+fastparquet>=2023.0      # alternative parquet engine
+
+# Utilities
+python-dateutil>=2.8.0
