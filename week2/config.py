@@ -14,7 +14,7 @@ from pathlib import Path
 #   config.py → week2/ → root (e:\实习交付\week2\)
 #   root/week1/data/  contains raw data
 _WEEK2_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
-_PROJECT_ROOT = _WEEK2_DIR.parent 
+_PROJECT_ROOT = _WEEK2_DIR.parent
 
 WEEK1_DATA_DIR = _PROJECT_ROOT / "week1" / "data"
 WEEK2_OUTPUT_DIR = _WEEK2_DIR / "output"
