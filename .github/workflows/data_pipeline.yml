@@ -56,5 +56,6 @@ jobs:
             echo 'No changes to commit'
           else
             git commit -m 'chore(data): automated pipeline update'
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git push
           fi
