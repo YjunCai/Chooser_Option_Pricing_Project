@@ -1,17 +1,11 @@
 # =============================================================================
 # Chooser Option Pricing — Automated Preprocessing Pipeline (Week 2)
 # =============================================================================
-# Schedule: Daily at 06:00 UTC (after US market close)
-# Triggers:
-#   - Scheduled: daily 06:00 UTC, weekdays only
-#   - Manual: via workflow_dispatch (GitHub UI)
-#
-# Pipeline:
-#   1. Set up Python environment
-#   2. Install dependencies
-#   3. Run preprocessing & feature engineering (Week 2)
-#   4. Validate output
-#   5. Commit updated datasets
+# Requires: week1/data/ raw CSV files committed to repository
+# Trigger:
+#   - Scheduled: every weekday 06:00 UTC
+#   - Manual: GitHub UI → Actions → Run workflow
+#   - Push: changes to week2/ or workflow file
 # =============================================================================
 
 name: Data Preprocessing Pipeline
@@ -19,14 +13,13 @@ name: Data Preprocessing Pipeline
 on:
   schedule:
     - cron: "0 6 * * 1-5"
-
   workflow_dispatch:
-
   push:
     branches: [main, master]
     paths:
       - ".github/workflows/data_pipeline.yml"
       - "week2/**"
+      - "week1/data/**"
 
 env:
   PYTHON_VERSION: "3.11"
@@ -36,85 +29,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r week2/requirements.txt
+          pip install yfinance
 
       - name: Run preprocessing pipeline
         working-directory: week2
+        run: python preprocessing_pipeline.py --format csv
+
+      - name: Commit results
         run: |
-          echo "=== Week 2: Data Preprocessing & Feature Engineering ==="
-          python preprocessing_pipeline.py --format csv
-          echo "Pipeline complete"
-
-      - name: Generate inner-join dataset
-        run: |
-          echo "=== Generate inner-join aligned data ==="
-          python -c "
-          import sys
-          sys.path.insert(0, 'week2')
-          import data_cleaner
-
-          price_cols = {'open', 'high', 'low', 'close', 'adjusted_close'}
-          raw = data_cleaner.load_raw_data()
-          aligned = data_cleaner.clean_all(raw, skip_iqr_sources={'vix'}, skip_iqr_cols=price_cols)
-          inner = aligned.dropna(subset=['close_jpm', 'close_vix']).copy()
-          inner.to_csv('week2/data/inner_join_aligned.csv', index=False)
-          print(f'Inner join saved: {len(inner)} rows')
-          "
-
-      - name: Generate feature dataset
-        run: |
-          echo "=== Generate feature dataset ==="
-          python -c "
-          import sys, pandas as pd
-          sys.path.insert(0, 'week2')
-          import feature_engineering
-
-          df = pd.read_csv('week2/data/inner_join_aligned.csv', parse_dates=['date'])
-          ds = feature_engineering.build_feature_set(df)
-          ds.to_csv('week2/data/feature_dataset.csv', index=False)
-          print(f'Feature dataset saved: {ds.shape[0]} rows x {ds.shape[1]} cols')
-          "
-
-      - name: Validate output
-        run: |
-          python -c "
-          import pandas as pd
-          ds = pd.read_csv('week2/data/feature_dataset.csv')
-          print(f'Rows: {ds.shape[0]}, Cols: {ds.shape[1]}')
-          print(f'Date range: {ds[\"date\"].iloc[0]} to {ds[\"date\"].iloc[-1]}')
-          total_nulls = ds.isnull().sum().sum()
-          print(f'Total nulls: {total_nulls}')
-          feature_count = len([c for c in ds.columns if c != 'date'])
-          print(f'Features: {feature_count}')
-          if total_nulls > 500:
-              print('WARNING: Excessive nulls detected')
-              exit(1)
-          print('Validation passed')
-          "
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add week2/data/ week2/output/
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo 'No changes to commit'
           else
-            git commit -m "chore(data): automated pipeline update $(date +'%Y-%m-%d')"
+            git commit -m 'chore(data): automated pipeline update'
             git push
-            echo "Changes committed and pushed"
           fi

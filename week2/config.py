@@ -10,7 +10,7 @@ from pathlib import Path
 # =============================================================================
 # Paths
 # =============================================================================
-WEEK1_DATA_DIR = Path(r"E:\JPMorgan实习交付\week1\data")
+WEEK1_DATA_DIR = Path(r"E:/JPMorgan实习交付/week1/data")
 WEEK2_OUTPUT_DIR = Path(os.path.dirname(__file__)) / "output"
 
 # =============================================================================
