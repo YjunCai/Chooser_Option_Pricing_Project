@@ -101,26 +101,46 @@ python -c "import sys, pandas as pd; sys.path.insert(0,'.'); import feature_engi
 
 工作流文件位于 `.github/workflows/data_pipeline.yml`。
 
+#### 前置条件
+
+`week1/data/` 下的原始 CSV 文件必须已提交到 GitHub 仓库：
+
+```powershell
+git add week1/data/
+git commit -m "add raw data files"
+git push
+```
+
 #### 触发方式
 
 | 触发 | 说明 |
 |------|------|
 | **定时调度** | 每个交易日 06:00 UTC（美国收盘后）自动运行 |
 | **手动触发** | GitHub UI → Actions → Data Preprocessing Pipeline → Run workflow |
-| **代码变更** | 推送 week1/week2 代码或 workflow 配置时自动触发 |
+| **代码变更** | 推送 `week1/data/`、`week2/` 或 workflow 配置时自动触发 |
 
 #### 流程
 
 ```
-Yahoo Finance (JPM/VIX)    FRED (Treasury)
-         ↓                       ↓
-    data_collection.py  ←  Week 1 Pipeline
+week1/data/yahoo_jpm.csv
+week1/data/yahoo_vix.csv
+week1/data/fred_3mo_treasury.csv
          ↓
-    preprocessing_pipeline.py  ←  Week 2 Pipeline
+week2/preprocessing_pipeline.py  ←  Web 2 Pipeline（清洗 + 特征工程）
          ↓
-    data/feature_dataset.csv
+week2/data/feature_dataset.csv
+week2/output/feature_dataset.csv
          ↓
     git commit & push  ←  自动提交更新
+```
+
+#### 权限设置
+
+如果提交步骤报 403 错误，需在仓库设置中开启 Actions 写入权限：
+
+```
+GitHub 仓库 → Settings → Actions → General
+  → Workflow permissions → "Read and write permissions" → Save
 ```
 
 ---
