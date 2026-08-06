@@ -1,0 +1,17 @@
+feature,importance,dropped_var,dropped_corr
+dps_growth_rate,0.0339589730201262,False,False
+daily_return,0.005290721731716611,False,False
+vol_5d,0.0507966770852382,False,False
+vol_21d,0.03638170718925924,False,False
+vol_63d,0.13909162221559293,False,False
+high_low_spread,0.0,True,False
+volume_change_1d,0.0025517266243640724,False,False
+sma_ratio_21,0.12967601877132726,False,False
+vix_change_1d,0.005125875440938699,False,False
+vix_jpm_corr_21d,0.09296256311161781,False,False
+vix_jpm_cross_1d,0.0028568728755791763,False,False
+rate_change_1d_bps,0.004149393946517683,False,False
+rate_momentum_5d_bps,0.1135914898768065,False,False
+sentiment_score,0.3254394391342392,False,False
+jpm_vol_ratio,0.026795024817249886,False,False
+vix_ratio,0.03133189415942646,False,False
