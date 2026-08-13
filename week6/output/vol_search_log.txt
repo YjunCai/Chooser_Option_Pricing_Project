@@ -1,0 +1,33 @@
+  searchable region: 1411 rows, 19 features
+      rf           CV-MAE=0.0714  best_params={'model__n_estimators': 100, 'model__min_samples_split': 2, 'model__min_samples_leaf': 20, 'model__max_features': 'sqrt', 'model__max_depth': None}
+      gbdt         CV-MAE=0.0756  best_params={'model__subsample': 1.0, 'model__n_estimators': 100, 'model__min_samples_leaf': 30, 'model__max_features': 0.5, 'model__max_depth': 3, 'model__learning_rate': 0.01}
+      xgb          CV-MAE=0.0699  best_params={'model__subsample': 0.7, 'model__reg_lambda': 5.0, 'model__reg_alpha': 0.0, 'model__n_estimators': 100, 'model__min_child_weight': 1, 'model__max_depth': 4, 'model__learning_rate': 0.01, 'model__colsample_bytree': 0.8}
+      gbdt         CV-MAE=0.2842  best_params={'model__subsample': 1.0, 'model__n_estimators': 100, 'model__min_samples_leaf': 20, 'model__max_features': 1.0, 'model__max_depth': 2, 'model__learning_rate': 0.01}
+      LSTM epoch  1/25  loss=0.060215
+      LSTM epoch 10/25  loss=0.006650
+      LSTM epoch 20/25  loss=0.001549
+      LSTM epoch 25/25  loss=0.001134
+      lstm  iter 1/4 h=24 d=0.0 lr=5e-04 val-MAE=6.75%
+      LSTM epoch  1/25  loss=0.060215
+      LSTM epoch 10/25  loss=0.006650
+      LSTM epoch 20/25  loss=0.001549
+      LSTM epoch 25/25  loss=0.001134
+      lstm  iter 2/4 h=24 d=0.0 lr=5e-04 val-MAE=6.75%
+      LSTM epoch  1/25  loss=0.060215
+      LSTM epoch 10/25  loss=0.006650
+      LSTM epoch 20/25  loss=0.001549
+      LSTM epoch 25/25  loss=0.001134
+      lstm  iter 3/4 h=24 d=0.1 lr=5e-04 val-MAE=6.75%
+      LSTM epoch  1/25  loss=0.060215
+      LSTM epoch 10/25  loss=0.006650
+      LSTM epoch 20/25  loss=0.001549
+      LSTM epoch 25/25  loss=0.001134
+      lstm  iter 4/4 h=24 d=0.2 lr=5e-04 val-MAE=6.75%
+      lstm  best val-MAE=6.75%  params={'mae': np.float64(0.0674644163290258), 'hidden_size': 24, 'dropout': 0.0, 'lr': 0.0005}
+        model   cv_MAE                                                                                                                                                         best_params
+           rf 0.071389                                                    {'n_estimators': 100, 'min_samples_split': 2, 'min_samples_leaf': 20, 'max_features': 'sqrt', 'max_depth': None}
+         gbdt 0.075603                                         {'subsample': 1.0, 'n_estimators': 100, 'min_samples_leaf': 30, 'max_features': 0.5, 'max_depth': 3, 'learning_rate': 0.01}
+          xgb 0.069888 {'subsample': 0.7, 'reg_lambda': 5.0, 'reg_alpha': 0.0, 'n_estimators': 100, 'min_child_weight': 1, 'max_depth': 4, 'learning_rate': 0.01, 'colsample_bytree': 0.8}
+gbdt_anchored 0.284162                                         {'subsample': 1.0, 'n_estimators': 100, 'min_samples_leaf': 20, 'max_features': 1.0, 'max_depth': 2, 'learning_rate': 0.01}
+         lstm      NaN                                                                                                                   {'hidden_size': 24, 'dropout': 0.0, 'lr': 0.0005}
+saved output/vol_search_results.pkl

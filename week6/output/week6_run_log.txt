@@ -1,0 +1,117 @@
+========================================================================
+  WEEK 6 -- MODEL TRAINING, TUNING & COMPARISON
+========================================================================
+
+[1/6] Hyper-parameter search (purged time-series CV)...
+        model   cv_MAE                                                                                                                                                         best_params
+           rf 0.071389                                                    {'n_estimators': 100, 'min_samples_split': 2, 'min_samples_leaf': 20, 'max_features': 'sqrt', 'max_depth': None}
+         gbdt 0.075603                                         {'subsample': 1.0, 'n_estimators': 100, 'min_samples_leaf': 30, 'max_features': 0.5, 'max_depth': 3, 'learning_rate': 0.01}
+          xgb 0.069888 {'subsample': 0.7, 'reg_lambda': 5.0, 'reg_alpha': 0.0, 'n_estimators': 100, 'min_child_weight': 1, 'max_depth': 4, 'learning_rate': 0.01, 'colsample_bytree': 0.8}
+gbdt_anchored 0.284162                                         {'subsample': 1.0, 'n_estimators': 100, 'min_samples_leaf': 20, 'max_features': 1.0, 'max_depth': 2, 'learning_rate': 0.01}
+         lstm      NaN                                                                                                                   {'hidden_size': 24, 'dropout': 0.0, 'lr': 0.0005}
+
+[2/6] Final model training & test evaluation...
+      rf             test MAE=8.36%  R2=-0.629
+      gbdt           test MAE=8.36%  R2=-0.634
+      xgb            test MAE=8.42%  R2=-0.873
+      gbdt_anchored test MAE=7.16%  R2=-0.110
+      LSTM epoch  1/25  loss=0.049546
+      LSTM epoch 10/25  loss=0.005214
+      LSTM epoch 20/25  loss=0.001706
+      LSTM epoch 25/25  loss=0.001241
+      lstm          test MAE=10.92%  R2=-2.118
+      vix_proxy    test MAE=7.46%  R2=-0.100
+
+      Volatility forecast error (test):
+                   model     MAE    RMSE       R2  MAE_improve_vs_base_%
+           gbdt_anchored 0.07160 0.09287 -0.11010                2.24031
+BSM(vol_21d) persistence 0.07324 0.08946 -0.03012                0.00000
+               vix_proxy 0.07457 0.09244 -0.09985               -1.82149
+                    gbdt 0.08358 0.11265 -0.63358              -14.11399
+                      rf 0.08359 0.11250 -0.62903              -14.13379
+                     xgb 0.08417 0.12064 -0.87334              -14.92095
+     historical mean vol 0.09241 0.12346 -0.96192              -26.16886
+                    lstm 0.10915 0.15565 -2.11845              -49.02955
+
+      Chooser price error (test, vs forward-vol fair price):
+        model    MAE   RMSE  MAPE%     R2    bias
+    vix_proxy 1.1745 1.6933 2.2593 0.9815 -0.5800
+ BSM(vol_21d) 1.5174 2.1712 2.8904 0.9696  0.0718
+gbdt_anchored 1.5539 2.7118 3.1091 0.9525  0.2148
+           rf 1.6032 2.9185 3.1805 0.9450  0.3651
+          xgb 1.7071 3.3234 3.5465 0.9287  0.9100
+         gbdt 1.7190 2.7537 3.5888 0.9510  0.8842
+         lstm 2.6278 4.1719 4.8847 0.8876  1.3201
+      pricing_gbdt   test MAE=$3.6921  R2=0.670
+      pricing_nn     test MAE=$4.6079  R2=0.510
+
+      Option price error (test, vs forward-vol fair price):
+                            model       family    MAE   RMSE    MAPE%     R2    bias                                                                                                params  MAE_improve_vs_base_%
+BSM(vol_21d) static-vol benchmark          bsm 1.7728 2.2448  51.6683 0.9296 -0.2725                                                                                                   NaN                 0.0000
+                     pricing_gbdt pricing_gbdt 3.6921 4.8578  72.0164 0.6702 -1.3564 {"subsample": 1.0, "n_estimators": 200, "min_samples_leaf": 20, "max_depth": 4, "learning_rate": 0.1}              -108.2622
+                       pricing_nn   pricing_nn 4.6079 5.9193 141.3575 0.5103  0.7576       {"max_iter": 300, "learning_rate_init": 0.001, "hidden_layer_sizes": [64, 32], "alpha": 0.0001}              -159.9186
+
+[3/6] Performance comparison vs BSM baseline...
+    -> output/*.csv , assets/fig_w6_*.png
+
+[4/6] Exporting final models (pickle)...
+    exported -> vol_rf.pkl
+    exported -> vol_gbdt.pkl
+    exported -> vol_xgb.pkl
+    exported -> vol_gbdt_anchored.pkl
+    exported -> vol_lstm.pkl
+    exported -> vol_vix_proxy.pkl
+    exported -> price_pricing_gbdt.pkl
+    exported -> price_pricing_nn.pkl
+
+[5/6] SHAP / LIME interpretability...
+  interpretability targets: vol_model=vix_proxy, price_model=pricing_gbdt
+  [vol] top-8 SHAP:
+        feature  mean_abs_SHAP
+sentiment_score       1.686000
+        vol_63d       0.507168
+        vol_21d       0.357096
+      vix_ratio       0.280026
+dps_growth_rate       0.152643
+   sma_ratio_21       0.061097
+  vix_change_1d       0.057451
+         vol_5d       0.037919
+  [price] top-8 SHAP:
+        feature  mean_abs_SHAP
+  log_moneyness       2.586539
+dps_growth_rate       2.230707
+        is_call       2.139783
+    tenor_years       2.041314
+        vol_63d       1.461820
+      vix_ratio       0.445111
+        vol_21d       0.435620
+sentiment_score       0.243999
+
+[6/6] Live-market metrics (2026-07-27 snapshot)...
+snapshot vol_21d = 0.2029
+snapshot VIX     = 18.67
+
+=== ML volatility forecasts for snapshot date (tuned) ===
+  rf                 sigma = 22.88%
+  gbdt               sigma = 24.00%
+  xgb                sigma = 24.40%
+  gbdt_anchored      sigma = 22.02%
+  vol_21d            sigma = 20.29%
+  vol_21d_snapshot   sigma = 20.21%
+  vix_proxy          sigma = 18.61%
+
+=== Live-market metrics (Week-6 tuned, 2026-07-27 snapshot) ===
+  Week 6 targets : MAE<$1.0 | ATM<2.0% | OTM>-30.0%
+  Week 4 baseline: MAE=$1.44 | ATM=4.9% | OTM=-65.7%
+           model  sigma_%  MAE_$  RMSE_$  ATM_IV_gap_%  OTM_put_bias_%  group_bias_%
+             xgb    24.40  0.793   1.097          0.76           -74.7         -29.5
+            gbdt    24.00  0.799   1.149          1.16           -75.9         -34.0
+              rf    22.88  0.897   1.365          2.28           -78.9         -45.0
+   gbdt_anchored    22.02  1.056   1.583          3.14           -81.1         -52.6
+         vol_21d    20.29  1.421   2.078          4.87           -84.9         -65.2
+vol_21d_snapshot    20.21  1.438   2.101          4.95           -85.1         -65.7
+       vix_proxy    18.61  1.768   2.582          6.55           -88.1         -74.5
+
+Total runtime: 16.7s
+
+Artifacts -> output/, assets/, models/

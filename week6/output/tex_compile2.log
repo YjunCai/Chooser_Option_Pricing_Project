@@ -1,0 +1,150 @@
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Week6实验报告.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/size11.clo))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/ctex.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-xetex.def)
+) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/ctexhook.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/ctexpatch.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/fix-cm.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/ts1enc.def))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/config/ctexopts.cfg)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/engine/ctex-engine-xetex.
+def (e:/bibtxt2025/texlive/2025/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate
+.sty) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/xelatex/xecjk/xeCJK.cfg)))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/zhnumber/zhnumber.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/zhnumber/zhnumber-utf8.cfg))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/scheme/ctex-scheme-chines
+e.def
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/config/ctex-name-utf8.cfg
+)) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/tools/indentfirst.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/fontset/ctex-fontset-wind
+ows.def)) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/ctex/config/ctex.cfg
+) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics-def/xetex.def)))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/tools/array.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/float/float.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/xelatex/xecjk/xeCJK-listings.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.st
+y) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestrin
+g.sty (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+)) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/hyperref/hxetex.def
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.
+sty (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.
+sty))) (e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/tools/multicol.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/psnfss/pifont.sty
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/psnfss/upzd.fd)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/psnfss/upsy.fd))
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+(./Week6实验报告.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/caption/ltcaption.sty)
+(./Week6实验报告.out) (./Week6实验报告.out)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(e:/bibtxt2025/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+Overfull \hbox (38.81711pt too wide) in paragraph at lines 63--64
+[]\TU/lmr/bx/n/10.95 Regime \TU/SimSun(0)/b/n/10.95 自 适 应 特 征\TU/SimSun(0)/m/n/
+10.95 ：|  将 \TU/lmr/m/n/10.95 Week 4 \TU/SimSun(0)/m/n/10.95 五 状 态 市 场 分 类 \TU/
+lmr/m/n/10.95 (BULL/BEAR/HIGH_VOL/CALM/NORMAL)
+
+[1]
+Overfull \hbox (2.8104pt too wide) in paragraph at lines 100--101
+[]\TU/SimSun(0)/m/n/10.95 外 层 \TU/lmr/m/n/10.95 70/15/15 \TU/SimSun(0)/m/n/10.9
+5 分 割 后，| \TU/lmr/bx/n/10.95 train+val \TU/SimSun(0)/b/n/10.95 构 成 可 搜 索 区 间  |
+\TU/SimSun(0)/m/n/10.95 （\TU/lmr/m/n/10.95 1411 \TU/SimSun(0)/m/n/10.95 行） 。|  
+内 层 \TU/lmtt/m/n/10.95 PurgedTimeSeriesSplit
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--107
+[]\TU/lmtt/m/n/10.95 val = [te_k+21,
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--119
+[]\TU/lmtt/m/n/10.95 model, space,
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--119
+[]\TU/lmtt/m/n/10.95 scoring='neg_MAE',
+
+Overfull \hbox (175.82594pt too wide) in paragraph at lines 132--143
+ [][] 
+
+[2]
+[3]
+[4]
+[5]
+[6]
+[7]
+[8]
+Overfull \hbox (20.6214pt too wide) in paragraph at lines 305--306
+[]\TU/SimSun(0)/m/n/10.95 对 最 优 定 价 模 型 \TU/lmr/m/n/10.95 (GBDT) \TU/SimSun(0)/
+m/n/10.95 的 \TU/lmr/m/n/10.95 SHAP \TU/SimSun(0)/m/n/10.95 显 示 \TU/SimSun(0)/b/
+n/10.95 合 约 特 征 主 导\TU/SimSun(0)/m/n/10.95 ：| \TU/lmr/m/n/10.95 log_moneyness (
+2.59)\TU/SimSun(0)/m/n/10.95 、| \TU/lmr/m/n/10.95 dps_growth_rate
+
+Overfull \hbox (30.66594pt too wide) in paragraph at lines 328--338
+ [][] 
+
+[9]
+[10]
+[11] (./Week6实验报告.aux) )
+(see the transcript file for additional information)
+Output written on Week6实验报告.pdf (11 pages).
+Transcript written on Week6实验报告.log.

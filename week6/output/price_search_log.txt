@@ -1,0 +1,19 @@
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+D:\anaconda\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.
+  warnings.warn(
+      pricing_gbdt CV-MAE=2.1275  best_params={'model__subsample': 1.0, 'model__n_estimators': 200, 'model__min_samples_leaf': 20, 'model__max_depth': 4, 'model__learning_rate': 0.1}
+      pricing_nn   CV-MAE=2.1117  best_params={'model__max_iter': 300, 'model__learning_rate_init': 0.001, 'model__hidden_layer_sizes': (64, 32), 'model__alpha': 0.0001}
+saved output/price_search_results.pkl
+pricing_gbdt params: {'subsample': 1.0, 'n_estimators': 200, 'min_samples_leaf': 20, 'max_depth': 4, 'learning_rate': 0.1}
+pricing_nn params: {'max_iter': 300, 'learning_rate_init': 0.001, 'hidden_layer_sizes': (64, 32), 'alpha': 0.0001}

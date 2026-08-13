@@ -1,0 +1,39 @@
+{
+  "track": "approach1_vol",
+  "family": "vix_proxy",
+  "features": [
+    "sentiment_score",
+    "vol_63d",
+    "sma_ratio_21",
+    "rate_momentum_5d_bps",
+    "vix_jpm_corr_21d",
+    "vol_5d",
+    "vol_21d",
+    "dps_growth_rate",
+    "vix_ratio",
+    "jpm_vol_ratio",
+    "daily_return",
+    "vix_change_1d",
+    "rate_change_1d_bps",
+    "vix_jpm_cross_1d",
+    "volume_change_1d",
+    "regime_BULL",
+    "regime_BEAR",
+    "regime_HIGH_VOL",
+    "regime_CALM"
+  ],
+  "target": "fwd_realized_vol_21d",
+  "fit_region": "train+val",
+  "test_MAE": 0.07457494502797521,
+  "params": {
+    "subsample": 0.7,
+    "reg_lambda": 5.0,
+    "reg_alpha": 0.0,
+    "n_estimators": 100,
+    "min_child_weight": 1,
+    "max_depth": 4,
+    "learning_rate": 0.01,
+    "colsample_bytree": 0.8
+  },
+  "artifact": "E:\\实习交付\\week2\\week6\\models\\vol_vix_proxy.pkl"
+}

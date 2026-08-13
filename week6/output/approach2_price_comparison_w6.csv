@@ -1,0 +1,4 @@
+model,family,MAE,RMSE,MAPE%,R2,bias,params,MAE_improve_vs_base_%,week5_default_MAE_$
+BSM(vol_21d) static-vol benchmark,bsm,1.7728192918954873,2.2447938195851744,51.6683052121352,0.9295785909750031,-0.27250760715114036,,0.0,1.7728192918954873
+pricing_gbdt,pricing_gbdt,3.6921131614785105,4.857796957260486,72.0163850225512,0.6702152936881818,-1.3564122072356457,"{""subsample"": 1.0, ""n_estimators"": 200, ""min_samples_leaf"": 20, ""max_depth"": 4, ""learning_rate"": 0.1}",-108.2622396065493,
+pricing_nn,pricing_nn,4.607887567694697,5.919289643037478,141.35752598276682,0.5103441163935095,0.7576189675803071,"{""max_iter"": 300, ""learning_rate_init"": 0.001, ""hidden_layer_sizes"": [64, 32], ""alpha"": 0.0001}",-159.9186272825344,
