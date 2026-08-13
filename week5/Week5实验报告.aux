@@ -1,0 +1,55 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\HyPL@Entry{0<</S/D>>}
+\@writefile{toc}{\contentsline {section}{\numberline {1}实验目标}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}总体架构}{1}{section.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Week 5 双轨 ML 定价架构。两条路径共享特征工程与 70/15/15 时序分割管线；方法一 (左) 先预测波动率再代入 BSM 公式，方法二 (右) 端到端直接学习定价映射；二者统一与 BSM($\sigma _{21d}$) 基线对比。}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:architecture}{{1}{2}{Week 5 双轨 ML 定价架构。两条路径共享特征工程与 70/15/15 时序分割管线；方法一 (左) 先预测波动率再代入 BSM 公式，方法二 (右) 端到端直接学习定价映射；二者统一与 BSM($\sigma _{21d}$) 基线对比。}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}数据与特征工程}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}输入数据}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}特征工程优化}{2}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 特征工程优化结果}}{3}{table.caption.2}\protected@file@percent }
+\newlabel{tab:feat_opt}{{1}{3}{特征工程优化结果}{table.caption.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces RF 特征重要性 Top-8 (目标: 前向 21 日已实现波动率)}}{3}{table.caption.3}\protected@file@percent }
+\newlabel{tab:feat_imp}{{2}{3}{RF 特征重要性 Top-8 (目标: 前向 21 日已实现波动率)}{table.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}反前瞻偏差设计}{3}{section.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 反前瞻偏差设计}}{4}{table.caption.4}\protected@file@percent }
+\newlabel{tab:leakage}{{3}{4}{反前瞻偏差设计}{table.caption.4}{}}
+\newlabel{lst:split}{{1}{4}{时间序列分割 (无前瞻偏差)}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces 时间序列分割 (无前瞻偏差)}}{4}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}方法一：ML 波动率预测 + BSM 混合定价}{4}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}目标变量设计}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}模型注册表}{5}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces 方法一模型注册表 (BaseModel 统一接口)}}{5}{table.caption.5}\protected@file@percent }
+\newlabel{tab:a1_models}{{4}{5}{方法一模型注册表 (BaseModel 统一接口)}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}波动率预测结果 (测试集 2024)}{5}{subsection.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 波动率预测误差对比 (精选特征集, 测试集 208 天)}}{5}{table.caption.6}\protected@file@percent }
+\newlabel{tab:a1_vol}{{5}{5}{波动率预测误差对比 (精选特征集, 测试集 208 天)}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Chooser 定价结果 (BSM 混合引擎)}{6}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Chooser 期权定价误差 (测试集, 混合引擎)}}{6}{table.caption.7}\protected@file@percent }
+\newlabel{tab:a1_price}{{6}{6}{Chooser 期权定价误差 (测试集, 混合引擎)}{table.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 方法一结果 (精选特征集)。\textbf  {左图}：测试期波动率预测 vs 实际前向波动率——黑色实线为实际，灰色虚线为 BSM $\sigma _{21d}$ 基线，彩色为 ML 预测。\textbf  {右图}：各模型 Chooser 定价 MAE 条形图——GBDT-anchored (ML $\sigma $) 首次低于 BSM 基线。}}{7}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:a1}{{2}{7}{方法一结果 (精选特征集)。\textbf {左图}：测试期波动率预测 vs 实际前向波动率——黑色实线为实际，灰色虚线为 BSM $\sigma _{21d}$ 基线，彩色为 ML 预测。\textbf {右图}：各模型 Chooser 定价 MAE 条形图——GBDT-anchored (ML $\sigma $) 首次低于 BSM 基线。}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}方法二：端到端监督定价}{7}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}目标变量与合约网格}{7}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}结果 (测试集)}{7}{subsection.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces 端到端期权定价误差 (测试集合约网格)}}{7}{table.caption.9}\protected@file@percent }
+\newlabel{tab:a2}{{7}{7}{端到端期权定价误差 (测试集合约网格)}{table.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 方法二结果。\textbf  {左图}：最优 ML 模型预测价 vs 公平价散点图（红色虚线为 45° 线）。\textbf  {右图}：各模型定价 MAE 条形图——GBDT 为最优 ML 模型，但静态波动率基准因波动率持久性仍具竞争力。}}{8}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:a2}{{3}{8}{方法二结果。\textbf {左图}：最优 ML 模型预测价 vs 公平价散点图（红色虚线为 45° 线）。\textbf {右图}：各模型定价 MAE 条形图——GBDT 为最优 ML 模型，但静态波动率基准因波动率持久性仍具竞争力。}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}核心发现与讨论}{8}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}关键发现}{8}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}实盘指标验证 (Live-Market Metrics)}{9}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces 实盘指标：ML 增强 vs Week 4 基线（2026-07-27 快照, 595 合约）}}{9}{table.caption.11}\protected@file@percent }
+\newlabel{tab:live}{{8}{9}{实盘指标：ML 增强 vs Week 4 基线（2026-07-27 快照, 595 合约）}{table.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 实盘指标对比（灰色虚线为 Week 6 目标线）。ML 预测波动率 (22.2\%) 高于 BSM 静态 $\sigma _{21d}$ (20.2\%)，更接近市场 ATM IV (25.2\%)——市场为波动率支付的溢价被 ML 模型部分捕捉，三项实盘指标同步改善。RandomForest 实现 28\% 的 MAE 降幅。}}{10}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:live}{{4}{10}{实盘指标对比（灰色虚线为 Week 6 目标线）。ML 预测波动率 (22.2\%) 高于 BSM 静态 $\sigma _{21d}$ (20.2\%)，更接近市场 ATM IV (25.2\%)——市场为波动率支付的溢价被 ML 模型部分捕捉，三项实盘指标同步改善。RandomForest 实现 28\% 的 MAE 降幅。}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}改善目标对照 (Week 4 报告附)}{10}{subsection.7.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Week 5 改善目标对照（Week 5 现状取最优 ML 模型 RandomForest）}}{10}{table.caption.13}\protected@file@percent }
+\newlabel{tab:targets}{{9}{10}{Week 5 改善目标对照（Week 5 现状取最优 ML 模型 RandomForest）}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}结论与 Week 6 计划}{11}{section.8}\protected@file@percent }
+\newlabel{lst:run}{{2}{11}{复现命令}{lstlisting.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces 复现命令}}{11}{lstlisting.2}\protected@file@percent }
+\gdef \@abspage@last{11}
