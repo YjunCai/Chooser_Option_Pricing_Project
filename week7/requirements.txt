@@ -1,0 +1,19 @@
+# =============================================================================
+# Week 7 -- Advanced Sensitivity Analysis & Tool Development
+# =============================================================================
+# Additions on top of the week2/week5 stacks:
+#   - streamlit  : pricing-tool prototype UI
+#   - plotly     : interactive sensitivity charts
+#   - shap       : SHAP price-impact quantification
+#   - joblib     : load models/*.pkl (already a sklearn dependency)
+#   - yfinance   : real-time data fetch (already in week5)
+# Install: pip install -r requirements.txt
+# =============================================================================
+
+streamlit>=1.35
+plotly>=5.18
+shap>=0.44
+scikit-learn>=1.3
+joblib>=1.3
+xgboost>=2.0
+yfinance>=0.2.40
