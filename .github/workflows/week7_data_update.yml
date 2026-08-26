@@ -1,0 +1,73 @@
+# =============================================================================
+# Chooser Option Pricing -- Week 7 Real-Time Data Auto-Update
+# =============================================================================
+# Runs week7/data_updater.py on a schedule to refresh the training feature
+# dataset with the latest JPM / VIX / 3M-Treasury market data.
+#
+# Trigger:
+#   - Scheduled: every weekday 06:30 UTC (staggered off the :00 mark)
+#   - Manual: GitHub UI -> Actions -> Run workflow
+#   - Push: changes to week7/ or this workflow
+#
+# The updater fetches from yfinance, builds the week-2 feature frame and
+# merges rows AFTER the last dataset date (idempotent incremental update).
+# If yfinance is rate-limited, the updater degrades to the cached snapshot
+# and --commit refuses to write simulated data unless --force is passed.
+# =============================================================================
+
+name: Week 7 Real-Time Data Update
+
+on:
+  schedule:
+    - cron: "30 6 * * 1-5"
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - ".github/workflows/week7_data_update.yml"
+      - "week7/**"
+      - "week1/data/**"
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  refresh-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install -r week2/requirements.txt
+          pip install -r week5/requirements.txt
+          pip install -r week7/requirements.txt
+
+      - name: Refresh feature dataset
+        working-directory: week7
+        # --force lets the updater commit even if yfinance was rate-limited and
+        # it fell back to the cached snapshot (keeps the dataset moving).
+        run: python data_updater.py --commit --force
+
+      - name: Commit updated data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add week2/data/ week7/output/
+          if git diff --staged --quiet; then
+            echo 'No changes to commit'
+          else
+            git commit -m 'chore(data): week7 real-time dataset refresh'
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            git push
+          fi

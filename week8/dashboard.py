@@ -46,18 +46,20 @@ def historical_price_series(model_families=('vol_xgb', 'vol_vix_proxy'),
     `max_rows` downsamples the dense daily grid for chart readability.
     If `spot` is given, all rows are priced at a fixed reference spot instead
     of the historical one (used for the ATM canonical trend).
-    If `extend_live`, the most recent live feature row (yfinance or cache) is
-    appended so the trend chart reaches today.
+    If `extend_live`, ALL fetched live feature rows after the training dataset's
+    last date (2024-12-30) are appended (not just the single latest row), so the
+    trend chart extends continuously to today instead of drawing a straight line
+    across a data gap. Rows after 2024-12-30 are out-of-sample for the trained
+    models; callers can shade the extension region via the 'oos' column.
     """
     from data_preparation import load_dataset
     train = load_dataset().reset_index(drop=True)
     feat = pd.concat([train, te.regime_dummies(train)], axis=1).copy()
     feat = feat.dropna(subset=['vol_21d']).reset_index(drop=True)
+    feat['oos'] = 0.0
 
     if extend_live:
-        live = _latest_live_feature_row()
-        if live is not None:
-            feat = pd.concat([feat, live], ignore_index=True)
+        feat = _extend_live_history(feat)
 
     if max_rows is not None and len(feat) > max_rows:
         idx = np.linspace(0, len(feat) - 1, max_rows).astype(int)
@@ -75,6 +77,8 @@ def historical_price_series(model_families=('vol_xgb', 'vol_vix_proxy'),
         'date': pd.to_datetime(feat[cfg.DATE_COL]),
         'spot': spot_arr,
         'vol_21d': vol21,
+        'oos': feat['oos'].astype(float).values if 'oos' in feat.columns
+               else np.zeros(len(feat)),
     })
 
     for fam in model_families:
@@ -89,19 +93,33 @@ def historical_price_series(model_families=('vol_xgb', 'vol_vix_proxy'),
     return out
 
 
-def _latest_live_feature_row():
-    """Latest live feature row (with regime dummies) if fetchable; else None."""
+def _extend_live_history(feat: pd.DataFrame,
+                         last_train_date: str = '2024-12-30') -> pd.DataFrame:
+    """
+    Append every fetched live feature row AFTER `last_train_date` to `feat`, so
+    the trend series is continuous through 2025-2026 (out-of-sample) instead of
+    ending with a single point. Marks extension rows with `oos = 1`.
+
+    Uses a 5-year fetch window so rolling features (63d vol, 252d sentiment) are
+    fully warmed by the time the extension begins. Falls back to the cached
+    snapshot if yfinance is unavailable.
+    """
     try:
-        market = te.fetch_market_history(period='2y')
-        feat = te.build_features(market)
-        feat = pd.concat([feat, te.regime_dummies(feat)], axis=1).dropna()
-        if len(feat) == 0:
-            return None
-        row = feat.iloc[[-1]].copy()
-        row.index.name = cfg.DATE_COL
-        return row.reset_index()
+        market = te.fetch_market_history(period='5y')
+        ext = te.build_features(market)
+        ext = pd.concat([ext, te.regime_dummies(ext)], axis=1).dropna()
+        ext.index.name = cfg.DATE_COL      # rename index BEFORE reset_index
+        ext = ext.reset_index()
+        if len(ext) == 0:
+            return feat
+        cut = pd.Timestamp(last_train_date)
+        add = ext[pd.to_datetime(ext[cfg.DATE_COL]) > cut].copy()
+        if len(add) == 0:
+            return feat
+        add['oos'] = 1.0
+        return pd.concat([feat, add], ignore_index=True)
     except Exception:
-        return None
+        return feat
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,6 +151,17 @@ def _setup_fonts():
     return plt
 
 
+def _shade_oos(ax, series: pd.DataFrame, ylabel: str):
+    """Shade the out-of-sample extension region (2025+) and mark the boundary."""
+    if 'oos' not in series.columns or not series['oos'].astype(float).any():
+        return
+    boundary = pd.Timestamp('2024-12-30')
+    ax.axvline(boundary, color='grey', ls='--', lw=1.1, alpha=0.7)
+    ax.axvspan(boundary, series['date'].max(), color='gold', alpha=0.08)
+    ax.text(boundary, 0.97, '样本外延伸 (2025–)', transform=ax.get_xaxis_transform(),
+            ha='left', va='top', fontsize=9, color='#8a6d1a')
+
+
 def plot_price_trend(series: pd.DataFrame, out_path):
     """Chooser price over time: BSM baseline vs ML-vol models."""
     plt = _setup_fonts()
@@ -147,9 +176,10 @@ def plot_price_trend(series: pd.DataFrame, out_path):
         if c in series.columns:
             ax.plot(series['date'], series[c], lw=1.6, color=colors.get(c, 'grey'),
                     label=labels.get(c, c))
+    _shade_oos(ax, series, 'Chooser 价格 ($)')
     ax.set_xlabel('日期')
     ax.set_ylabel('Chooser 价格 ($)')
-    ax.set_title('双轨定价：BSM(vol_21d) 与最优 ML 模型的 Chooser 价格趋势 (2018–2024)')
+    ax.set_title('双轨定价：BSM(vol_21d) 与最优 ML 模型的 Chooser 价格趋势 (2018–2026，2025 起样本外)')
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3)
     fig.tight_layout()
@@ -169,9 +199,10 @@ def plot_sigma_trend(series: pd.DataFrame, out_path):
         if c in series.columns:
             ax.plot(series['date'], series[c] * 100, lw=1.4, color=colors.get(c, 'grey'),
                     label=label)
+    _shade_oos(ax, series, '年化波动率 (%)')
     ax.set_xlabel('日期')
     ax.set_ylabel('年化波动率 (%)')
-    ax.set_title('波动率输入：BSM(vol_21d) vs ML 预测 (2018–2024)')
+    ax.set_title('波动率输入：BSM(vol_21d) vs ML 预测 (2018–2026，2025 起样本外)')
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3)
     fig.tight_layout()

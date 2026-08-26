@@ -176,15 +176,23 @@ def fetch_market_history(period: str = '2y') -> pd.DataFrame:
         irx = yf.Ticker('^IRX').history(period=period, auto_adjust=True)
         if len(jpm) < 30 or len(vix) < 30 or len(irx) < 30:
             raise RuntimeError('yfinance returned too few rows')
+        # Normalize every source to a naive (tz-free) date index before
+        # aligning, otherwise reindex against a tz-aware vs naive mix returns
+        # all-NaN and the frame silently becomes empty.
         idx = jpm.index.tz_localize(None)
         out = pd.DataFrame(index=idx)
         out['close'] = jpm['Close'].values
         out['high'] = jpm['High'].values
         out['low'] = jpm['Low'].values
         out['volume'] = jpm['Volume'].values
-        out['vix'] = vix['Close'].reindex(jpm.index).values
-        out['rate'] = irx['Close'].reindex(jpm.index).values
-        return out.dropna(subset=['close', 'vix', 'rate'])
+        vix_s = vix['Close'].copy(); vix_s.index = vix.index.tz_localize(None)
+        irx_s = irx['Close'].copy(); irx_s.index = irx.index.tz_localize(None)
+        out['vix'] = vix_s.reindex(idx).values
+        out['rate'] = irx_s.reindex(idx).values
+        out = out.dropna(subset=['close', 'vix', 'rate'])
+        if len(out) < 30:
+            raise RuntimeError('yfinance returned too few rows after alignment')
+        return out
     except Exception:
         # offline fallback: d:/tmp raw CSVs (cache written by week1/week4)
         return _load_cached_market()

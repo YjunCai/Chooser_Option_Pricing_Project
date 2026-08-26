@@ -59,15 +59,22 @@ def fetch_raw_history(period: str = '2y') -> Tuple[pd.DataFrame, str]:
         irx = yf.Ticker('^IRX').history(period=period, auto_adjust=True)
         if len(jpm) < 30 or len(vix) < 30 or len(irx) < 30:
             raise RuntimeError('yfinance returned too few rows')
+        # Normalize every source to a naive (tz-free) date index before
+        # aligning (see tool_engine.fetch_market_history).
         idx = jpm.index.tz_localize(None)
         out = pd.DataFrame(index=idx)
         out['close'] = jpm['Close'].values
         out['high'] = jpm['High'].values
         out['low'] = jpm['Low'].values
         out['volume'] = jpm['Volume'].values
-        out['vix'] = vix['Close'].reindex(jpm.index).values
-        out['rate'] = irx['Close'].reindex(jpm.index).values
-        return out.dropna(subset=['close', 'vix', 'rate']), 'yfinance'
+        vix_s = vix['Close'].copy(); vix_s.index = vix.index.tz_localize(None)
+        irx_s = irx['Close'].copy(); irx_s.index = irx.index.tz_localize(None)
+        out['vix'] = vix_s.reindex(idx).values
+        out['rate'] = irx_s.reindex(idx).values
+        out = out.dropna(subset=['close', 'vix', 'rate'])
+        if len(out) < 30:
+            raise RuntimeError('yfinance returned too few rows after alignment')
+        return out, 'yfinance'
     except Exception as exc:
         sys.stderr.write(f'[data_updater] yfinance unavailable ({exc}); '
                          f'falling back to cached snapshot data\n')

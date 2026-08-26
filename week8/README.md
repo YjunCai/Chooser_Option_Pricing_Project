@@ -75,6 +75,7 @@ python data_updater.py --commit          # 增量合并到 week2/data/feature_da
 |---|---|
 | 可部署定价工具 | `streamlit_app.py` + 本 README（GitHub 仓库） |
 | 最终项目报告（11 页 PDF） | `E:/实习交付/实验报告/Week_8_实验报告.pdf` |
+| 结项报告（19 页 PDF，≥8000 字） | `E:/实习交付/实验报告/Week_1-8_结项报告.pdf` |
 | 最终演示文稿（14 页） | `presentation/Week_8_Final_Presentation.pptx` |
 | 工具演示视频脚本（5–10 分钟） | `demo_script.md` |
 

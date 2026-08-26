@@ -281,12 +281,12 @@ ATM 基座下波动率 +50\% 使 BSM $+49.1\%$、XGB $+70.3\%$、VIX-proxy $+80.
 
 仪表板包含六个标签页：\textbf{价格趋势}、\textbf{敏感性分析}、\textbf{极端场景}、\textbf{性能指标}、\textbf{误差范围}、\textbf{实时数据}。
 
-\textbf{价格趋势}（第 8 周新增）在 2018--2024 历史区间以双轨模型重新定价，并延伸至最新实时市场状态（2026-07-27，$S=\$356.20$），同时展示波动率输入随时间的变化（图 \ref{fig:price_trend}）。
+\textbf{价格趋势}（第 8 周新增）在 2018--2024 历史区间以双轨模型重新定价，并以实时市场数据（yfinance）按日连续延伸到当前（2026-08），避免从训练集末直接画直线到实时点的视觉断层；延伸区段（2025 起）为样本外预测，图中以灰色虚线与阴影单独标注（图 \ref{fig:price_trend}），同时展示波动率输入随时间的变化。
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_w8_price_trend.png}
-  \caption{价格趋势：BSM(vol\_21d) 与最优 ML 模型的 Chooser 价格（2018--2024 $+$ 实时点）。}
+  \caption{价格趋势：BSM(vol\_21d) 与最优 ML 模型的 Chooser 价格（2018--2024 训练区间 + 2025 起样本外实时延伸，灰色虚线为分界）。}
   \label{fig:price_trend}
 \end{figure}
 

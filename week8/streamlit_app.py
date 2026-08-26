@@ -34,7 +34,7 @@ import dashboard as db
 
 import streamlit as st
 
-st.set_page_config(page_title='Chooser Option Pricing Tool — Final',
+st.set_page_config(page_title='Chooser Option Pricing Tool',
                    layout='wide', initial_sidebar_state='expanded')
 
 
@@ -181,7 +181,7 @@ with st.sidebar:
 # Main area -- metric cards
 # ═══════════════════════════════════════════════════════════════════════════════
 
-st.title('🎯 Chooser Option Pricing Tool — 最终版')
+st.title('🎯 Chooser Option Pricing Tool')
 st.caption('Week 8 交付 · 双轨定价 (BSM(vol_21d) + 最优 ML 波动率模型) · 数据日期 '
            f"{live['last_date']} · 模型来自 Week 6 (models/*.pkl)")
 
@@ -210,26 +210,38 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with tab1:
-    st.subheader('双轨定价价格趋势 (2018–2024 + 实时点)')
-    st.caption('历史区间以 BSM(vol_21d) 与最优 ML 波动率模型重新定价；末尾标记点为最新实时市场状态。')
+    st.subheader('双轨定价价格趋势 (2018–2026 连续延伸)')
+    st.caption('2018–2024 为训练区间；2025 起以实时市场数据(样本外)延伸，'
+               '灰色虚线为训练/延伸分界，浅黄阴影为样本外区段。')
     trend = cached_trend_series()
     trend = trend[(trend['date'] <= pd.Timestamp(live['last_date']))].copy()
-    # extend / re-price the last live point with the current sidebar contract params
+    boundary = pd.Timestamp('2024-12-30')
     import plotly.graph_objects as go
     fig = go.Figure()
+    # sample-out region: shade 2025+ and mark the training boundary
+    fig.add_vrect(x0=boundary, x1=trend['date'].max(),
+                  fillcolor='rgba(255, 210, 0, 0.07)', line_width=0)
+    fig.add_vline(x=boundary, line_dash='dash', line_color='grey', opacity=0.55)
+    fig.add_annotation(x=boundary, y=1.0, yref='paper',
+                       text='训练区间结束 (2024-12-30)', showarrow=False,
+                       xanchor='left', yanchor='bottom',
+                       font=dict(size=11, color='#666666'))
     for col, name, color in [('price_BSM', 'BSM(vol_21d) 基线', '#2166ac'),
                              ('price_xgb', 'XGBoost (实盘首选)', '#d73027'),
                              ('price_vix_proxy', 'VIX-proxy (IV 对齐)', '#fdae61')]:
         if col in trend.columns:
+            # connectgaps=False: any missing trading date breaks the line instead
+            # of drawing a straight segment across the gap
             fig.add_trace(go.Scatter(x=trend['date'], y=trend[col], name=name,
-                                     mode='lines', line=dict(color=color, width=1.6)))
+                                     mode='lines', connectgaps=False,
+                                     line=dict(color=color, width=1.6)))
     fig.add_trace(go.Scatter(x=[trend['date'].iloc[-1]], y=[p['price_ML']], name='实时 ML 点',
                              mode='markers', marker=dict(color='#d73027', size=10,
                                                          symbol='star', line=dict(width=1, color='black'))))
     fig.add_trace(go.Scatter(x=[trend['date'].iloc[-1]], y=[p['price_BSM']], name='实时 BSM 点',
                              mode='markers', marker=dict(color='#2166ac', size=10,
                                                          symbol='star', line=dict(width=1, color='black'))))
-    fig.update_layout(title='价格趋势：BSM 与 ML 的 Chooser 价格 (随最新市场状态延伸)',
+    fig.update_layout(title='价格趋势：BSM 与 ML 的 Chooser 价格 (2018–2024 训练区间 + 2025 起样本外实时延伸)',
                       xaxis_title='日期', yaxis_title='Chooser 价格 ($)',
                       height=460, margin=dict(t=50, b=30, l=40, r=20),
                       hovermode='x unified')
@@ -237,13 +249,17 @@ with tab1:
 
     st.subheader('波动率输入趋势')
     fig2 = go.Figure()
+    fig2.add_vrect(x0=boundary, x1=trend['date'].max(),
+                   fillcolor='rgba(255, 210, 0, 0.07)', line_width=0)
+    fig2.add_vline(x=boundary, line_dash='dash', line_color='grey', opacity=0.55)
     for col, name, color in [('vol_21d', 'vol_21d (BSM 基线)', '#2166ac'),
                              ('sigma_xgb', 'XGBoost 预测 σ', '#d73027'),
                              ('sigma_vix_proxy', 'VIX-proxy 预测 σ', '#fdae61')]:
         if col in trend.columns:
             fig2.add_trace(go.Scatter(x=trend['date'], y=trend[col] * 100, name=name,
-                                      mode='lines', line=dict(color=color, width=1.5)))
-    fig2.update_layout(title='波动率输入：vol_21d vs ML 预测 (年化 %)',
+                                      mode='lines', connectgaps=False,
+                                      line=dict(color=color, width=1.5)))
+    fig2.update_layout(title='波动率输入：vol_21d vs ML 预测 (年化 %, 2025 起样本外)',
                        xaxis_title='日期', yaxis_title='年化波动率 (%)',
                        height=340, margin=dict(t=50, b=30, l=40, r=20),
                        hovermode='x unified')
@@ -352,5 +368,3 @@ with tab6:
     if 'updater_status' in st.session_state:
         st.json(st.session_state['updater_status'])
 
-st.caption('---  Week 8 最终交付 · 可部署定价工具  |  双轨: BSM(vol_21d) vs 最优 ML 波动率 + BSM 引擎  |  '
-           '配套: 最终报告 + 演示文稿 + 演示视频脚本')
