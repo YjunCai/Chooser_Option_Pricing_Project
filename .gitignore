@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Runtime status — rewritten every data refresh; committing it causes
+# merge conflicts between concurrent GitHub Actions runs.
+week7/output/updater_status.json
+
+# Logs / LaTeX build artifacts
+*.log
+Week8_build.*

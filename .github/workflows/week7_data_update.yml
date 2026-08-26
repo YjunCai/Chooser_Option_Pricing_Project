@@ -77,6 +77,7 @@ jobs:
             git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             pushed=0
             for i in 1 2 3; do
+              git merge --abort 2>/dev/null || git rebase --abort 2>/dev/null || true
               git pull --rebase origin main 2>/dev/null || git pull --no-rebase origin main 2>/dev/null || true
               if git push; then pushed=1; break; fi
               sleep 10
