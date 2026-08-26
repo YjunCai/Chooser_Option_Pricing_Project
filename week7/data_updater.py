@@ -119,6 +119,9 @@ def merge_into_dataset(new_feat: pd.DataFrame) -> Dict[str, object]:
     cols = [c for c in FEATURE_COLUMNS if c in new_feat.columns]
     add = add[cols].copy()
     for c in cols:
+        if c == cfg.DATE_COL:
+            continue                     # keep date as datetime; pd.to_numeric
+                                          # would turn it into int nanoseconds
         add[c] = pd.to_numeric(add[c], errors='coerce')
     merged = pd.concat([existing, add], ignore_index=True)
     merged = merged.drop_duplicates(subset=[cfg.DATE_COL], keep='last')
