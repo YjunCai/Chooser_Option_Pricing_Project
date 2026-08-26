@@ -1,0 +1,22 @@
+# =============================================================================
+# Week 8 -- Tool Finalization & Project Delivery
+# =============================================================================
+# Additions on top of the week2/week5/week7 stacks:
+#   - streamlit  : pricing-tool dashboard UI
+#   - plotly     : interactive sensitivity / price-trend charts
+#   - shap       : SHAP price-impact quantification (week7)
+#   - joblib     : load models/*.pkl (sklearn dependency)
+#   - yfinance   : real-time data fetch
+#   - python-pptx: final presentation deck builder
+#   - playwright : UI screenshot capture (capture_ui.py, optional)
+# Install: pip install -r requirements.txt
+# =============================================================================
+
+streamlit>=1.35
+plotly>=5.18
+shap>=0.44
+scikit-learn>=1.3
+joblib>=1.3
+xgboost>=2.0
+yfinance>=0.2.40
+python-pptx>=0.6.21

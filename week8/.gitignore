@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Streamlit / logs
+streamlit_run.log
+*.log
+
+# LaTeX build artifacts
+Week8_build.*
+*.aux
+*.toc
+*.out
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Data caches (keep raw CSVs out of the repo unless intended)
+# d:/tmp/*.csv snapshots are referenced at runtime, not committed
