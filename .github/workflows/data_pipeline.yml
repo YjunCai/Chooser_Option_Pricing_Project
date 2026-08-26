@@ -21,6 +21,12 @@ on:
       - "week2/**"
       - "week1/data/**"
 
+# Serialize with the other data-refresh workflows so two runs never commit
+# the same dataset files at once (avoid "cannot lock ref" push races).
+concurrency:
+  group: data-refresh
+  cancel-in-progress: false
+
 env:
   PYTHON_VERSION: "3.11"
 
@@ -59,5 +65,11 @@ jobs:
           else
             git commit -m 'chore(data): automated pipeline update'
             git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-            git push
+            pushed=0
+            for i in 1 2 3; do
+              git pull --rebase origin main 2>/dev/null || git pull --no-rebase origin main 2>/dev/null || true
+              if git push; then pushed=1; break; fi
+              sleep 10
+            done
+            if [ "$pushed" -eq 0 ]; then echo '::error::failed to push after 3 attempts'; exit 1; fi
           fi
