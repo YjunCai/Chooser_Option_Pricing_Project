@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Streamlit / logs
+*.log
+
+# Generated artifacts (keep the source code + data + models in the repo)
+output/updater_status.json

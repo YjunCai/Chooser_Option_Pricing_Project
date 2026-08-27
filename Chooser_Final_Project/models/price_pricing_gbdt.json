@@ -1,0 +1,33 @@
+{
+  "track": "approach2_price",
+  "family": "pricing_gbdt",
+  "features": [
+    "dps_growth_rate",
+    "daily_return",
+    "vol_5d",
+    "vol_21d",
+    "vol_63d",
+    "high_low_spread",
+    "volume_change_1d",
+    "sma_ratio_21",
+    "vix_change_1d",
+    "vix_jpm_corr_21d",
+    "vix_jpm_cross_1d",
+    "rate_change_1d_bps",
+    "rate_momentum_5d_bps",
+    "sentiment_score",
+    "jpm_vol_ratio",
+    "vix_ratio",
+    "regime_BULL",
+    "regime_BEAR",
+    "regime_HIGH_VOL",
+    "regime_CALM",
+    "log_moneyness",
+    "tenor_years",
+    "is_call"
+  ],
+  "target": "label_price",
+  "fit_region": "train+val dates",
+  "test_MAE": null,
+  "artifact": "E:\\实习交付\\week2\\week6\\models\\price_pricing_gbdt.pkl"
+}
